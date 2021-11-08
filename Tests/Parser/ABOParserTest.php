@@ -133,7 +133,6 @@ class ABOParserTest extends TestCase
         $this->assertEquals(13, $transaction->getSpecificSymbol());
         $this->assertEquals('Tran 1', $transaction->getNote());
         $this->assertEquals(new \DateTimeImmutable('2014-01-05 12:00:00'), $transaction->getDateCreated());
-        $this->assertEquals('CZK', $transaction->getCurrency());
 
 
         $this->assertEquals(2001, $transaction->getAdditionalInformation()->getTransferIdentificationNumber());

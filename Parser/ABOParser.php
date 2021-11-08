@@ -29,27 +29,6 @@ class ABOParser extends Parser
     const POSTING_CODE_DEBIT_REVERSAL  = 4;
     const POSTING_CODE_CREDIT_REVERSAL = 5;
 
-    private const CURRENCIES = [
-        '00036' => 'AUD',
-        '00124' => 'CAD',
-        '00156' => 'CNY',
-        '00203' => 'CZK',
-        '00208' => 'DKK',
-        '00978' => 'EUR',
-        '00826' => 'GBP',
-        '00191' => 'HRK',
-        '00348' => 'HUF',
-        '00756' => 'CHF',
-        '00392' => 'JPY',
-        '00578' => 'NOK',
-        '00985' => 'PLN',
-        '00946' => 'RON',
-        '00643' => 'RUB',
-        '00752' => 'SEK',
-        '00949' => 'TRY',
-        '00840' => 'USD',
-    ];
-
     /**
      * @param string $filePath
      *
@@ -248,7 +227,7 @@ class ABOParser extends Parser
      * 11 | Specific symbol           |  F  | 82  | 10  | int     | Y
      * 12 | Date                      |  F  | 92  | 6   | ddmmyy  | Y
      * 13 | Note                      |  F  | 98  | 20  | string  | Y
-     * 14 | Currency code             |  F  | 118 | 5   | int     | N
+     * 14 | Undefined                 |  F  | 118 | 5   | int     | N
      * 15 | Posting date              |  F  | 123 | 4   | ddmmyy  | N
      *
      * @param string $line
@@ -306,11 +285,6 @@ class ABOParser extends Parser
         $date = substr($line, 122, 6);
         $dateCreated = \DateTimeImmutable::createFromFormat('dmyHis', $date . '120000');
         $transaction->setDateCreated($dateCreated);
-
-        # Currency
-        $currencyCode = substr($line, 117, 5);
-        $currency = $this->findCurrencyByCode($currencyCode);
-        $transaction->setCurrency($currency);
         return $transaction;
     }
 
@@ -346,18 +320,4 @@ class ABOParser extends Parser
         return $additionalInformation;
     }
 
-    /**
-     * @param string $currencyCode
-     * @throws Exception
-     * @return string
-     */
-    private function findCurrencyByCode(string $currencyCode): string
-    {
-        if (!array_key_exists($currencyCode, self::CURRENCIES)) {
-            throw new Exception('Unknown currency with code ' . $currencyCode);
-        }
-
-        return self::CURRENCIES[$currencyCode];
-
-    }
 }
