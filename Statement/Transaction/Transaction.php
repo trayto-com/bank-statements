@@ -45,9 +45,29 @@ class Transaction implements TransactionInterface
     protected $note;
 
     /**
-     * @var \DateTime
+     * @var \DateTimeImmutable
      */
     protected $dateCreated;
+
+    /**
+     * @var string
+     */
+    protected $currency;
+
+    /**
+     * @var AdditionalInformation|null
+     */
+    protected $additionalInformation;
+
+    /**
+     * @var string|null
+     */
+    protected $messageStart;
+
+    /**
+     * @var string|null
+     */
+    protected $messageEnd;
 
     /**
      * @return string
@@ -110,7 +130,7 @@ class Transaction implements TransactionInterface
     }
 
     /**
-     * @return \DateTime|null
+     * @return \DateTimeImmutable|null
      */
     public function getDateCreated()
     {
@@ -118,11 +138,11 @@ class Transaction implements TransactionInterface
     }
 
     /**
-     * @param \DateTime $dateCreated
+     * @param \DateTimeImmutable $dateCreated
      *
      * @return $this
      */
-    public function setDateCreated(\DateTime $dateCreated)
+    public function setDateCreated(\DateTimeImmutable $dateCreated)
     {
         $this->dateCreated = $dateCreated;
 
@@ -227,5 +247,45 @@ class Transaction implements TransactionInterface
         $this->variableSymbol = $variableSymbol;
 
         return $this;
+    }
+
+    public function getCurrency(): string
+    {
+        return $this->currency;
+    }
+
+    public function setCurrency(string $currency): void
+    {
+        $this->currency = $currency;
+    }
+
+    public function getAdditionalInformation(): ?AdditionalInformation
+    {
+        return $this->additionalInformation;
+    }
+
+    public function setAdditionalInformation(?AdditionalInformation $additionalInformation): void
+    {
+        $this->additionalInformation = $additionalInformation;
+    }
+
+    public function getMessageStart(): ?string
+    {
+        return $this->messageStart;
+    }
+
+    public function setMessageStart(?string $messageStart): void
+    {
+        $this->messageStart = $messageStart;
+    }
+
+    public function getMessageEnd(): ?string
+    {
+        return $this->messageEnd;
+    }
+
+    public function setMessageEnd(?string $messageEnd): void
+    {
+        $this->messageEnd = $messageEnd;
     }
 }

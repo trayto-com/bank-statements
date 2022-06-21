@@ -41,16 +41,16 @@ interface TransactionInterface
     public function setCredit($credit);
 
     /**
-     * @return \DateTime|null
+     * @return \DateTimeImmutable|null
      */
     public function getDateCreated();
 
     /**
-     * @param \DateTime $dateCreated
+     * @param \DateTimeImmutable $dateCreated
      *
      * @return $this
      */
-    public function setDateCreated(\DateTime $dateCreated);
+    public function setDateCreated(\DateTimeImmutable $dateCreated);
 
     /**
      * @return float
@@ -111,4 +111,20 @@ interface TransactionInterface
      * @return $this
      */
     public function setVariableSymbol($variableSymbol);
+
+    public function getCurrency(): string;
+
+    public function setCurrency(string $currency): void;
+
+    public function getAdditionalInformation(): ?AdditionalInformation;
+
+    public function setAdditionalInformation(?AdditionalInformation $additionalInformation): void;
+
+    public function getMessageStart(): ?string;
+
+    public function setMessageStart(?string $messageStart): void;
+
+    public function getMessageEnd(): ?string;
+
+    public function setMessageEnd(?string $messageStart): void;
 }
